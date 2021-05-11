@@ -147,7 +147,7 @@ func readDeps(updates bool) ([]Module, error) {
 	}
 	var args = []string{"list", "-m", "-json"}
 	if updates {
-		args = append(args, "-u")
+		args = append(args, "-u", "-mod=readonly")
 	}
 	set := make(map[string]struct{})
 	scanner := bufio.NewScanner(bytes.NewBuffer(out))
