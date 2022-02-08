@@ -4,16 +4,16 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/spf13/cobra"
+	"github.com/muesli/coral"
 	"golang.org/x/mod/semver"
 )
 
 func init() {
-	rootCmd.AddCommand(&cobra.Command{
+	rootCmd.AddCommand(&coral.Command{
 		Use:   "check",
 		Short: "Check for out-of-date dependencies",
 		Long:  "Scans through direct and indirect dependencies to check if a newer version is available. Exceptions can be set by 'modtools freeze'",
-		RunE: func(cmd *cobra.Command, args []string) error {
+		RunE: func(cmd *coral.Command, args []string) error {
 			res, err := checkDeps()
 			if err != nil {
 				return err

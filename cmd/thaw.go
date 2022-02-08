@@ -1,16 +1,16 @@
 package cmd
 
 import (
-	"github.com/spf13/cobra"
+	"github.com/muesli/coral"
 )
 
 func init() {
-	rootCmd.AddCommand(&cobra.Command{
+	rootCmd.AddCommand(&coral.Command{
 		Use:   "thaw modpath",
 		Short: "Un-freeze a dependency",
 		Long:  "Removes the specified module path from the list of exceptions.",
-		Args:  cobra.ExactArgs(1),
-		RunE: func(cmd *cobra.Command, args []string) error {
+		Args:  coral.ExactArgs(1),
+		RunE: func(cmd *coral.Command, args []string) error {
 			return thaw(args[0])
 		},
 	})

@@ -3,13 +3,13 @@ package cmd
 import (
 	"os"
 
-	"github.com/spf13/cobra"
+	"github.com/muesli/coral"
 )
 
 var (
-	rootCmd = &cobra.Command{
+	rootCmd = &coral.Command{
 		Use: "modtools",
-		PersistentPreRun: func(cmd *cobra.Command, args []string) {
+		PersistentPreRun: func(cmd *coral.Command, args []string) {
 			cmd.SilenceUsage = true
 		},
 	}

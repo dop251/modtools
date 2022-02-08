@@ -1,16 +1,16 @@
 package cmd
 
 import (
-	"github.com/spf13/cobra"
+	"github.com/muesli/coral"
 	"golang.org/x/mod/semver"
 )
 
 func init() {
-	rootCmd.AddCommand(&cobra.Command{
+	rootCmd.AddCommand(&coral.Command{
 		Use:   "update",
 		Short: "Update dependencies to the latest version",
 		Long:  "Updates all direct dependencies to a newer version if available so that 'modtools check' passes",
-		RunE: func(cmd *cobra.Command, args []string) error {
+		RunE: func(cmd *coral.Command, args []string) error {
 			return updateDeps()
 		},
 	})

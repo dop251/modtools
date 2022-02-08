@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/spf13/cobra"
+	"github.com/muesli/coral"
 )
 
 const (
@@ -13,14 +13,14 @@ const (
 )
 
 func init() {
-	rootCmd.AddCommand(&cobra.Command{
+	rootCmd.AddCommand(&coral.Command{
 		Use:   "freeze modpath [days]",
 		Short: "Freeze a dependency",
 		Long: "Adds the specified module path to the list of exceptions. The check and update commands will ignore this " +
 			"module for the specified number of days\n(defaults to " + strconv.Itoa(defaultFreezeDays) +
 			").\nDon't forget to add " + frozendepsFilename + " to the repository.",
-		Args: cobra.RangeArgs(1, 2),
-		RunE: func(cmd *cobra.Command, args []string) error {
+		Args: coral.RangeArgs(1, 2),
+		RunE: func(cmd *coral.Command, args []string) error {
 			var days int
 			if len(args) > 1 {
 				var err error
