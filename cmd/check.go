@@ -14,7 +14,7 @@ func init() {
 		Short: "Check for out-of-date dependencies",
 		Long:  "Scans through direct and indirect dependencies to check if a newer version is available. Exceptions can be set by 'modtools freeze'",
 		RunE: func(cmd *coral.Command, args []string) error {
-			res, err := checkDeps()
+			res, err := checkDeps(getDirectOnly(cmd))
 			if err != nil {
 				return err
 			}
@@ -31,12 +31,12 @@ func init() {
 	})
 }
 
-func checkDeps() (updates []Update, err error) {
+func checkDeps(directOnly bool) (updates []Update, err error) {
 	e, err := loadExceptions()
 	if err != nil {
 		return nil, err
 	}
-	list, err := readDeps(true)
+	list, err := readDeps(true, directOnly)
 	if err != nil {
 		return nil, err
 	}

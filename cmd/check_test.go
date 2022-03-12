@@ -10,7 +10,7 @@ func Test(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	_, err = checkDeps()
+	_, err = checkDeps(false)
 	if err != nil {
 		t.Fatal(err)
 	}

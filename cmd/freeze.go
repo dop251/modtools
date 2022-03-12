@@ -42,7 +42,7 @@ func freeze(p string, until time.Time) error {
 	if err != nil {
 		return err
 	}
-	deps, err := readDeps(false)
+	deps, err := readDeps(false, false)
 	if err != nil {
 		return err
 	}
