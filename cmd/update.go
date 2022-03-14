@@ -11,17 +11,17 @@ func init() {
 		Short: "Update dependencies to the latest version",
 		Long:  "Updates all direct dependencies to a newer version if available so that 'modtools check' passes",
 		RunE: func(cmd *coral.Command, args []string) error {
-			return updateDeps()
+			return updateDeps(getDirectOnly(cmd))
 		},
 	})
 }
 
-func updateDeps() error {
+func updateDeps(directOnly bool) error {
 	e, err := loadExceptions()
 	if err != nil {
 		return err
 	}
-	list, err := readDeps(true)
+	list, err := readDeps(true, directOnly)
 	if err != nil {
 		return err
 	}

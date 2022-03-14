@@ -132,7 +132,7 @@ func (e *Exceptions) Save() error {
 		return err
 	}
 
-	err = ioutil.WriteFile(e.filename, data, 0644)
+	err = ioutil.WriteFile(e.filename, data, 0o644)
 	if err == nil {
 		e.needSaving = false
 		e.isNew = false
@@ -140,12 +140,16 @@ func (e *Exceptions) Save() error {
 	return err
 }
 
-func readDeps(updates bool) ([]Module, error) {
-	out, err := runCommand("go", "list", "-f", "{{with .Module}}{{.Path}}{{end}}", "all")
+func readDeps(updates, directOnly bool) ([]Module, error) {
+	format := "{{with .Module}}{{.Path}}{{end}}"
+	if directOnly {
+		format = "{{with .Module}}{{if not .Indirect}}{{.Path}}{{end}}{{end}}"
+	}
+	out, err := runCommand("go", "list", "-f", format, "all")
 	if err != nil {
 		return nil, err
 	}
-	var args = []string{"list", "-m", "-json"}
+	args := []string{"list", "-m", "-json"}
 	if updates {
 		args = append(args, "-u", "-mod=readonly")
 	}
